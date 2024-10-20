@@ -1,10 +1,22 @@
 <script>
   import TScreen from "./TScreen.svelte";
   import Timer from "./Timer.svelte";
+  import Favorites from "./Favorites.svelte";
 
   let isToasting = false;
   let toastTime = 2;  //temperary deafult time for the toaster is 2 mins 
-</script>
+  let showFavorites = false;
+
+  function openFavorites() {
+    showFavorites = true;
+  }
+
+  function closeFavorites() {
+    showFavorites = false;
+  }
+  
+  </script>
+
 <div >
   <!-- <svg
   width="80vw"
@@ -48,7 +60,18 @@
   </div>
 <br>
   <Timer inputMinutes={toastTime}/>
+
+   <!-- Favorites button -->
+ <button class="favorites-btn" on:click={openFavorites}>Favorites</button>
+
+  <!-- Show Favorites popup if button is clicked -->
+  {#if showFavorites}
+    <Favorites closePopup={closeFavorites}/>
+  {/if}
 </div>
+
+
+
 </div>
 
 
@@ -61,6 +84,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    position: relative; 
   }
   svg {
     width: 80vw;
@@ -71,4 +95,22 @@
     height:100px;
     padding:10px;
   }
+
+.favorites-btn {
+  position: absolute; /* Position relative to the toaster */
+  bottom: 10px; /* 10px from the bottom of the toaster */
+  right: 10px; /* 10px from the right of the toaster */
+  padding: 5px 10px; /* Smaller padding */
+  background-color: #008585;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.favorites-btn:hover {
+  background-color: #005555;
+}
+
 </style>
